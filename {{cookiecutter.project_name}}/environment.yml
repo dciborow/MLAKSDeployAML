@@ -9,7 +9,6 @@ dependencies:
   - pandas>=0.23.3
   - scikit-learn>=0.19.1
   - pip:
-    - utilities
     - urllib3==1.23
     - aiohttp>=3.3.2
     - nest_asyncio>=0.9.10
