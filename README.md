@@ -1,7 +1,7 @@
 ![](https://dev.azure.com/customai/MLAKSDeployAMLPipeline/_apis/build/status/Microsoft.MLAKSDeployAML%20(master)?branchName=master)
 
 ### Authors: Fidan Boylu Uz, Yan Zhang
-### Acknowledgements: Mario Bourgoin, Mathew Salvaris
+### Acknowledgements: Mario Bourgoin, Mathew Salvaris, Daniel
 
 # Deploying Python models for real-time scoring using Azure Machine Learning
 
