@@ -31,21 +31,21 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     run = Run.get_context()
-    
+
     # The training and testing datasets.
     inputs_path = args.inputs
     data_path = os.path.join(inputs_path, args.train_data)
     test_path = os.path.join(inputs_path, args.test_data)
 
     # Create the outputs folder.
-    outputs_path = args.outputs    
-    os.makedirs(outputs_path, exist_ok=True)                    
+    outputs_path = args.outputs
+    os.makedirs(outputs_path, exist_ok=True)
     model_path = os.path.join(outputs_path, args.model)
     instances_path = os.path.join(outputs_path, args.instances)
     labels_path = os.path.join(outputs_path, args.labels)
 
     # Load the training data
-    print('Reading {}'.format(data_path))
+    print(f'Reading {data_path}')
     train = pd.read_csv(data_path, sep='\t', encoding='latin1')
 
     # Limit the number of duplicate-original question matches.
@@ -84,11 +84,7 @@ if __name__ == '__main__':
     # Use the inputs to define the hyperparameters used in training.
     n_estimators = args.estimators
     min_child_samples = args.min_child_samples
-    if args.ngrams > 0:
-        ngram_range = (1, args.ngrams)
-    else:
-        ngram_range = None
-
+    ngram_range = (1, args.ngrams) if args.ngrams > 0 else None
     # Verify that the hyperparameter values are valid.
     assert n_estimators > 0
     assert min_child_samples > 1
@@ -130,7 +126,7 @@ if __name__ == '__main__':
 
     # Test the model
     # Read in the test data set, and report of the number of its rows and proportion of true matches.
-    print('Reading {}'.format(test_path))
+    print(f'Reading {test_path}')
     test = pd.read_csv(test_path, sep='\t', encoding='latin1')
     print('test: {:,} rows with {:.2%} matches'.format(
         test.shape[0], test[label_column].mean()))
@@ -172,7 +168,7 @@ if __name__ == '__main__':
     for i in range(1, args.rank+1):
         print('Accuracy @{} = {:.2%}'.format(
             i, (test_score['Ranks'] <= i).mean()))
-        run.log('Accuracy @{}'.format(i), (test_score['Ranks'] <= i).mean())
+        run.log(f'Accuracy @{i}', (test_score['Ranks'] <= i).mean())
     mean_rank = test_score['Ranks'].mean()
     print('Mean Rank {:.4f}'.format(mean_rank))
     run.log('Mean Rank', mean_rank)

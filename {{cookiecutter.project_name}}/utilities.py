@@ -31,10 +31,7 @@ def clean_text(text):
 
 
 def replace_link(match):
-    if re.match('[a-z]+://', match.group(1)):
-        return ''
-    else:
-        return match.group(1)
+    return '' if re.match('[a-z]+://', match.group(1)) else match.group(1)
 
 
 def round_sample(X, frac=0.1, min=1):
@@ -67,8 +64,7 @@ def random_merge(A, B, N=20, on='AnswerId', key='key', n='n'):
         Z = X.merge(Y, how='outer', on=key).drop(key, axis=1)
         Z[n] = range(1, N)
         df_list.append(Z)
-    df = pd.concat(df_list, ignore_index=True)
-    return df
+    return pd.concat(df_list, ignore_index=True)
 
 
 def text_to_json(text):
